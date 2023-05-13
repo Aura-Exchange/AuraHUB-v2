@@ -10,7 +10,7 @@ const AuraDomains: NextPage = () => {
             <Flex
                 direction="column"
                 align="center"
-                css={{ py: '200px', px: '$3', textAlign: 'center' }}
+                css={{ py: '0px', px: '$3', textAlign: 'center' }}
             >
                 {/*
                 <Text style="h1" as="h1">
