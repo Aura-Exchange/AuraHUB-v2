@@ -134,7 +134,10 @@ const Navbar = () => {
               <NavItem active={router.pathname == '/portfolio'}>Sell</NavItem>
             </Link>
             <Link href="/mint">
-            <NavItem active={router.pathname == '/mint'}>Mint Aura Pass</NavItem>
+              <NavItem active={router.pathname == '/mint'}>Mint Aura Pass</NavItem>
+            </Link>
+            <Link href="/domains">
+              <NavItem active={router.pathname == '/mint'}>Aura Domain Service</NavItem>
             </Link>
           </Flex>
         </Flex>
