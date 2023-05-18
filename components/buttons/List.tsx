@@ -105,6 +105,11 @@ const List: FC<Props> = ({
             symbol: 'PEPE',
             decimals: 18
           },
+          {
+            contract: '0xda9f05a3e133c2907e7173495022a936a3808d45',
+            symbol: 'NELK',
+            decimals: 18
+          },
         ]}
         onClose={(data, stepData, currentStep) => {
           if (mutate && currentStep == ListStep.Complete) mutate();
