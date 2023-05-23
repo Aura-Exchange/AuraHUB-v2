@@ -1,4 +1,4 @@
-import { ListModal, ListStep, useTokens } from '@reservoir0x/reservoir-kit-ui';
+import { Currency, ListModal, ListStep, useTokens } from '@reservoir0x/reservoir-kit-ui';
 import { Button } from 'components/primitives';
 import {
   cloneElement,
@@ -53,6 +53,39 @@ const List: FC<Props> = ({
 
   let listingCurrencies: ListingCurrencies = undefined;
 
+  const ethCurrencies:Currency[] | undefined = [
+    {
+      contract: '0x0000000000000000000000000000000000000000',
+      symbol: activeChain?.nativeCurrency.name+"",
+    },
+    {
+      contract: '0x6982508145454ce325ddbe47a25d4ec3d2311933',
+      symbol: 'PEPE',
+      decimals: 18
+    },
+    {
+      contract: '0xda9f05a3e133c2907e7173495022a936a3808d45',
+      symbol: 'NELK',
+      decimals: 18
+    },
+  ]
+
+  const polyCurrencies:Currency[] | undefined = [
+    {
+      contract: '0x0000000000000000000000000000000000001010',
+      symbol: activeChain?.nativeCurrency.name+"",
+    },
+  ]
+
+  let currencyList;
+  if(activeChain?.id == 137){
+    currencyList = polyCurrencies
+  }
+  else{
+    currencyList = ethCurrencies
+  }
+  
+
   const tokenId = token?.token?.tokenId;
   const contract = token?.token?.contract;
 
@@ -90,31 +123,7 @@ const List: FC<Props> = ({
         })}
         collectionId={contract}
         tokenId={tokenId}
-        currencies={[
-          {
-            contract: '0x0000000000000000000000000000000000000000',
-            symbol: activeChain?.nativeCurrency.name+"",
-          },
-          // {
-          //   contract: '0x0000000000000000000000000000000000001010',
-          //   symbol: 'MATIC',
-          // },
-          // {
-          //   contract: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-          //   symbol: 'USDC',
-          //   decimals: 6
-          // },
-          // {
-          //   contract: '0x6982508145454ce325ddbe47a25d4ec3d2311933',
-          //   symbol: 'PEPE',
-          //   decimals: 18
-          // },
-          // {
-          //   contract: '0xda9f05a3e133c2907e7173495022a936a3808d45',
-          //   symbol: 'NELK',
-          //   decimals: 18
-          // },
-        ]}
+        currencies={currencyList}
         onClose={(data, stepData, currentStep) => {
           if (mutate && currentStep == ListStep.Complete) mutate();
         }}
