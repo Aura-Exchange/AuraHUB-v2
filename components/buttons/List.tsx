@@ -93,23 +93,27 @@ const List: FC<Props> = ({
         currencies={[
           {
             contract: '0x0000000000000000000000000000000000000000',
-            symbol: 'ETH',
+            symbol: activeChain?.nativeCurrency.name+"",
           },
-          {
-            contract: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-            symbol: 'USDC',
-            decimals: 6
-          },
-          {
-            contract: '0x6982508145454ce325ddbe47a25d4ec3d2311933',
-            symbol: 'PEPE',
-            decimals: 18
-          },
-          {
-            contract: '0xda9f05a3e133c2907e7173495022a936a3808d45',
-            symbol: 'NELK',
-            decimals: 18
-          },
+          // {
+          //   contract: '0x0000000000000000000000000000000000001010',
+          //   symbol: 'MATIC',
+          // },
+          // {
+          //   contract: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+          //   symbol: 'USDC',
+          //   decimals: 6
+          // },
+          // {
+          //   contract: '0x6982508145454ce325ddbe47a25d4ec3d2311933',
+          //   symbol: 'PEPE',
+          //   decimals: 18
+          // },
+          // {
+          //   contract: '0xda9f05a3e133c2907e7173495022a936a3808d45',
+          //   symbol: 'NELK',
+          //   decimals: 18
+          // },
         ]}
         onClose={(data, stepData, currentStep) => {
           if (mutate && currentStep == ListStep.Complete) mutate();
