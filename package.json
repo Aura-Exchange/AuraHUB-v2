@@ -61,6 +61,7 @@
     "@types/node": "^12.12.21",
     "@types/react": "^18.0",
     "@types/react-dom": "^18.0",
+    "@types/react-slick": "^0.23.10",
     "@uniswap/sdk-core": "^3.2.2",
     "@uniswap/v3-sdk": "^3.9.0",
     "@uniswap/widgets": "^2.51.2",
