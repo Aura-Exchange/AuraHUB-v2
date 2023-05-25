@@ -45,7 +45,7 @@ interface fireBaseProject {
   embedURL: string
 }
 
-const IndexPage: NextPage<Props> = ({ ssr }) => {
+const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
   const router = useRouter()
   const isSSR = typeof window === 'undefined'
   const isMounted = useMounted()
@@ -135,16 +135,6 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
   };
 
   const getProjectList = async () => {
-    const firebaseConfig = {
-    apiKey: process.env.FIREBASE_API_KEY,
-    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.FIREBASE_DATABASE_URL,
-    projectId:process.env.FIREBASE_PROJECT_ID,
-    storageBucket:process.env.FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.FIREBASE_APP_ID
-  };
-
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const dbref = ref(db)
@@ -314,11 +304,40 @@ type CollectionSchema =
   paths['/collections/v5']['get']['responses']['200']['schema']
 type ChainCollections = Record<string, CollectionSchema>
 
+interface FirebaseConfig {
+  apiKey: string;
+  authDomain: string;
+  databaseURL: string;
+  projectId: string;
+  storageBucket: string;
+  messagingSenderId: string;
+  appId: string;
+}
+
 export const getStaticProps: GetStaticProps<{
   ssr: {
     collections: ChainCollections
-  }
+  },
+  firebaseConfig:FirebaseConfig
 }> = async () => {
+
+  const apiKey = process.env.FIREBASE_API_KEY!
+    const auth = process.env.FIREBASE_AUTH_DOMAIN!
+    const dbURL = process.env.FIREBASE_DATABASE_URL!
+    const projectID = process.env.FIREBASE_PROJECT_ID!
+    const storageBucket= process.env.FIREBASE_STORAGE_BUCKET!
+    const messagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID!
+    const appID = process.env.FIREBASE_APP_ID!
+
+    const firebaseConfig = {
+      apiKey: apiKey,
+      authDomain: auth,
+      databaseURL: dbURL,
+      projectId:projectID,
+      storageBucket:storageBucket,
+      messagingSenderId: messagingSenderId,
+      appId: appID
+    };
 
   const collectionQuery: paths['/collections/v5']['get']['parameters']['query'] =
   {
@@ -353,7 +372,7 @@ export const getStaticProps: GetStaticProps<{
   })
 
   return {
-    props: { ssr: { collections }},
+    props: { ssr: { collections }, firebaseConfig:firebaseConfig},
     revalidate: 5,
   }
 }
