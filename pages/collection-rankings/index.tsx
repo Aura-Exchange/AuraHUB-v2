@@ -30,6 +30,7 @@ import Image from 'next/image'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from 'next/link'
+import styles from './featuredCarousel.module.css'
 
 import { getDatabase, ref, set, push, child, get, remove } from "firebase/database";
 // Import the functions you need from the SDKs you need
@@ -218,8 +219,8 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
                 <div style={{ display: 'flex', width: '100%', position:'sticky' }}>
                   <div style={{ display: 'flex', justifyContent: 'center', width: '100%', }}>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%', paddingTop:'2.3%'}}>
-                      <Text style='h4'>{project.name}</Text>
+                    <div className={styles.projectName}>
+                      {project.name}
                     </div>
 
                     <div style={{width:"300vw"}}> 
@@ -234,7 +235,7 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
                         }}
                         style={{ display: 'inline-block', minWidth: 0, marginBottom: 24 }}
                       >
-                        <button style={{ borderRadius: '50em', backgroundColor: '#202425', fontSize: '1.5em', padding: '20px' }}>
+                        <button className={styles.button}>
                           Mint Here
                         </button>
                       </Link>
