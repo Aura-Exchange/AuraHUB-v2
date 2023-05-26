@@ -43,7 +43,8 @@ interface fireBaseProject {
   iconURL: string,
   contractAddress: string,
   chain: string,
-  embedURL: string
+  embedURL: string,
+  buttonText:string
 }
 
 const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
@@ -155,6 +156,7 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
             contractAddress: projectData.CONTRACT_ADDRESS,
             chain: projectData.CHAIN,
             embedURL: projectData.EMBED,
+            buttonText: projectData.BUTTON_TEXT
           };
           projects.push(newProject)
         })
@@ -236,7 +238,7 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
                         style={{ display: 'inline-block', minWidth: 0, marginBottom: 24 }}
                       >
                         <button className={styles.button}>
-                          Mint Here
+                          {project.buttonText}
                         </button>
                       </Link>
                     </div>
