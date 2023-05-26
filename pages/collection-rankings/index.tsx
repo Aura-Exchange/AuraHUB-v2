@@ -30,11 +30,14 @@ import Image from 'next/image'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from 'next/link'
-import styles from './featuredCarousel.module.css'
 
 import { getDatabase, ref, set, push, child, get, remove } from "firebase/database";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+
+import { Button } from 'components/primitives';
+
+
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -219,17 +222,12 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
                 />
               </div>
                 <div style={{ display: 'flex', width: '100%', position:'sticky' }}>
-                  <div style={{ display: 'flex', justifyContent: 'center', width: '100%', }}>
-
-                    <div className={styles.projectName}>
-                      {project.name}
+                  <div style={{ display: 'flex', justifyContent: 'center', width: '100%', paddingLeft:'1%'}}>
+                    <div>
+                      <Text style={"h4"} ellipsify>{project.name}</Text>
                     </div>
 
-                    <div style={{width:"300vw"}}> 
-                      {/* Empty Space */}
-                    </div>
-
-                    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', paddingTop:'1%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'end', width: '100%', paddingTop:'.4%', paddingRight:'1%' }}>
                       <Link
                         href={{
                           pathname: `/featured/${project.name}/${project.contractAddress}`,
@@ -237,9 +235,9 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
                         }}
                         style={{ display: 'inline-block', minWidth: 0, marginBottom: 24 }}
                       >
-                        <button className={styles.button}>
+                        <Button>
                           {project.buttonText}
-                        </button>
+                        </Button>
                       </Link>
                     </div>
 
