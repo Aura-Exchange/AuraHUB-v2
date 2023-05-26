@@ -104,7 +104,7 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
 
