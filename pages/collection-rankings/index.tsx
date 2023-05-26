@@ -25,10 +25,32 @@ import ChainToggle from 'components/common/ChainToggle'
 import { Head } from 'components/Head'
 import { ChainContext } from 'context/ChainContextProvider'
 import { useRouter } from 'next/router'
+import Slider from "react-slick";
+import Image from 'next/image'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Link from 'next/link'
+
+import { getDatabase, ref, set, push, child, get, remove } from "firebase/database";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+
+import { Button } from 'components/primitives';
+
+
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-const IndexPage: NextPage<Props> = ({ ssr }) => {
+interface fireBaseProject {
+  name: string | null,
+  iconURL: string,
+  contractAddress: string,
+  chain: string,
+  embedURL: string,
+  buttonText:string
+}
+
+const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
   const router = useRouter()
   const isSSR = typeof window === 'undefined'
   const isMounted = useMounted()
@@ -44,6 +66,7 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
   }
 
   const { chain, switchCurrentChain } = useContext(ChainContext)
+  const [featuredProjects, setFeaturedProjects] = useState<fireBaseProject[]>([])
 
   useEffect(() => {
     if (router.query.chain) {
@@ -77,10 +100,81 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
   const loadMoreRef = useRef<HTMLDivElement>(null)
   const loadMoreObserver = useIntersectionObserver(loadMoreRef, {})
 
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 0
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+
+  const getProjectList = async () => {
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const dbref = ref(db)
+
+
+    get(child(dbref, 'Projects')).then((snapshot) => {
+      if (snapshot.exists()) {
+        const projects: fireBaseProject[] = [];
+        snapshot.forEach((childSnapshot) => {
+          const projectName = childSnapshot.key;
+          const projectData = childSnapshot.val();
+
+          // Create a new fireBaseProject object and add it to the projects array
+          const newProject: fireBaseProject = {
+            name: projectName,
+            iconURL: projectData.ICON,
+            contractAddress: projectData.CONTRACT_ADDRESS,
+            chain: projectData.CHAIN,
+            embedURL: projectData.EMBED,
+            buttonText: projectData.BUTTON_TEXT
+          };
+          projects.push(newProject)
+        })
+        setFeaturedProjects(projects)
+      }
+    })
+  }
+
   useEffect(() => {
     let isVisible = !!loadMoreObserver?.isIntersecting
+    
+    getProjectList()
     if (isVisible) {
       fetchNextPage()
+
     }
   }, [loadMoreObserver?.isIntersecting])
 
@@ -112,6 +206,49 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
           },
         }}
       >
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <Text style="h4" as="h4"> Featured Collections</Text>
+          <Slider {...settings}>
+            {featuredProjects.map((project) => (
+              <div key={project.name} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+              <div style={{ display: 'flex', backgroundColor: 'white', justifyContent: 'center', width: '100%', paddingTop: '20%', position: 'relative',objectFit:"cover",objectPosition:"center" }}>
+                <Image
+                  src={project.iconURL}
+                  // src = '/Tree.png'
+                  alt={project.name + ' icon'}
+                  layout="fill"
+                  objectFit="cover"
+                  objectPosition="center"
+                />
+              </div>
+                <div style={{ display: 'flex', width: '100%', position:'sticky' }}>
+                  <div style={{ display: 'flex', justifyContent: 'center', width: '100%', paddingLeft:'1%'}}>
+                    <div>
+                      <Text style={"h4"} ellipsify>{project.name}</Text>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'end', width: '100%', paddingTop:'.4%', paddingRight:'1%' }}>
+                      <Link
+                        href={{
+                          pathname: `/featured/${project.name}/${project.contractAddress}`,
+                          query: { embed: project.embedURL }
+                        }}
+                        style={{ display: 'inline-block', minWidth: 0, marginBottom: 24 }}
+                      >
+                        <Button>
+                          {project.buttonText}
+                        </Button>
+                      </Link>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+
         <Flex css={{ my: '$6', gap: 65 }} direction="column">
           <Flex
             justify="between"
@@ -125,6 +262,7 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
               },
             }}
           >
+
             <Text style="h4" as="h4">
               Collection Rankings
             </Text>
@@ -167,18 +305,48 @@ type CollectionSchema =
   paths['/collections/v5']['get']['responses']['200']['schema']
 type ChainCollections = Record<string, CollectionSchema>
 
+interface FirebaseConfig {
+  apiKey: string;
+  authDomain: string;
+  databaseURL: string;
+  projectId: string;
+  storageBucket: string;
+  messagingSenderId: string;
+  appId: string;
+}
+
 export const getStaticProps: GetStaticProps<{
   ssr: {
     collections: ChainCollections
-  }
+  },
+  firebaseConfig:FirebaseConfig
 }> = async () => {
+
+  const apiKey = process.env.FIREBASE_API_KEY!
+    const auth = process.env.FIREBASE_AUTH_DOMAIN!
+    const dbURL = process.env.FIREBASE_DATABASE_URL!
+    const projectID = process.env.FIREBASE_PROJECT_ID!
+    const storageBucket= process.env.FIREBASE_STORAGE_BUCKET!
+    const messagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID!
+    const appID = process.env.FIREBASE_APP_ID!
+
+    const firebaseConfig = {
+      apiKey: apiKey,
+      authDomain: auth,
+      databaseURL: dbURL,
+      projectId:projectID,
+      storageBucket:storageBucket,
+      messagingSenderId: messagingSenderId,
+      appId: appID
+    };
+
   const collectionQuery: paths['/collections/v5']['get']['parameters']['query'] =
-    {
-      sortBy: '1DayVolume',
-      normalizeRoyalties: NORMALIZE_ROYALTIES,
-      limit: 20,
-      includeTopBid: true,
-    }
+  {
+    sortBy: '1DayVolume',
+    normalizeRoyalties: NORMALIZE_ROYALTIES,
+    limit: 20,
+    includeTopBid: true,
+  }
 
   const promises: ReturnType<typeof fetcher>[] = []
   supportedChains.forEach((chain) => {
@@ -205,9 +373,9 @@ export const getStaticProps: GetStaticProps<{
   })
 
   return {
-    props: { ssr: { collections } },
+    props: { ssr: { collections }, firebaseConfig:firebaseConfig},
     revalidate: 5,
   }
 }
-
 export default IndexPage
+
