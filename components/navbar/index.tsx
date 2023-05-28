@@ -60,13 +60,13 @@ const Navbar = () => {
     >
       <Box css={{ flex: 1 }}>
         <Flex align="center">
-          <Link href="/collection/ethereum/0x26baebef64ba69705adff49d3c10bf8ed5fe1573">
+          <Link href="/">
             <Box css={{ width: 34, cursor: 'pointer' }}>
               <Image
                 src="/aura.png"
                 width={112}
                 height={36}
-                alt="Reservoir"
+                alt="AuraHUB"
               />
             </Box>
           </Link>
@@ -99,21 +99,21 @@ const Navbar = () => {
     >
       <Box css={{ flex: 1 }}>
         <Flex align="center">
-          <Link href="/collection/ethereum/0x26baebef64ba69705adff49d3c10bf8ed5fe1573">
+          <Link href="/">
             <Box css={{ width: 112, cursor: 'pointer' }}>
               {theme == 'dark' ? (
                 <Image
                   src="/aura.png"
                   width={112}
                   height={36}
-                  alt="aura"
+                  alt="AuraHUB"
                 />
               ) : (
                 <Image
                   src="/aura-light.png"
                   width={112}
                   height={36}
-                  alt="Aura"
+                  alt="AuraHUB"
                 />
               )}
             </Box>
@@ -127,7 +127,7 @@ const Navbar = () => {
             />
           </Box>
           <Flex align="center" css={{ gap: '$5', mr: '$5' }}>
-            <Link href="/collection/ethereum/0x26baebef64ba69705adff49d3c10bf8ed5fe1573">
+            <Link href="/collection-rankings">
               <NavItem active={router.pathname == '/collection-rankings'}>
                 Collection
               </NavItem>
