@@ -15,6 +15,7 @@ import { faCopy, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useENSResolver } from 'hooks'
 import CopyText from 'components/common/CopyText'
+import Wallet from './Wallet'
 
 export const ProfileDropdown: FC = () => {
   const { address } = useAccount()
@@ -73,6 +74,7 @@ export const ProfileDropdown: FC = () => {
           />
         </Flex>
       </DropdownMenuItem>
+      <Wallet />
       <DropdownMenuItem onClick={() => disconnect()}>
         <Flex
           justify="between"
