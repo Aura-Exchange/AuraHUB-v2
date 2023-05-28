@@ -35,6 +35,8 @@ import { ActivityFilters } from 'components/common/ActivityFilters'
 import { MobileActivityFilters } from 'components/common/MobileActivityFilters'
 import { UserActivityTable } from 'components/profile/UserActivityTable'
 import { useCollectionActivity } from '@reservoir0x/reservoir-kit-ui'
+import { useRouter } from 'next/router'
+import { ItemView, ViewToggle } from 'components/portfolio/ViewToggle'
 
 type ActivityTypes = Exclude<
   NonNullable<
@@ -47,8 +49,117 @@ type ActivityTypes = Exclude<
 
 export type UserToken = ReturnType<typeof useUserTokens>['data'][0]
 
-const IndexPage: NextPage = () => {
-  const { address, isConnected } = useAccount()
+ const IndexPage: NextPage = () => 
+//   const { address, isConnected } = useAccount()
+
+//   const [activityTypes, setActivityTypes] = useState<ActivityTypes>(['sale'])
+//   const [activityFiltersOpen, setActivityFiltersOpen] = useState(true)
+//   const [tokenFiltersOpen, setTokenFiltersOpen] = useState(true)
+//   const [filterCollection, setFilterCollection] = useState<string | undefined>(
+//     undefined
+//   )
+//   const [sortByType, setSortByType] =
+//     useState<PortfolioSortingOption>('acquiredAt')
+//   const isSmallDevice = useMediaQuery({ maxWidth: 905 })
+//   const isMounted = useMounted()
+
+//   let collectionQuery: Parameters<typeof useUserCollections>['1'] = {
+//     limit: 100,
+//   }
+
+//   const { chain } = useContext(ChainContext)
+
+//   if (chain.collectionSetId) {
+//     collectionQuery.collectionsSetId = chain.collectionSetId
+//   } else if (chain.community) {
+//     collectionQuery.community = chain.community
+//   }
+
+//   const { data: collections, isLoading: collectionsLoading } =
+//     useUserCollections(address as string, collectionQuery)
+
+//   // Batch listing logic
+//   const [showListingPage, setShowListingPage] = useState(false)
+//   const [selectedItems, setSelectedItems] = useState<UserToken[]>([])
+
+//   useEffect(() => {
+//     setSelectedItems([])
+//   }, [chain])
+
+//   useEffect(() => {
+//     setSelectedItems([])
+//     setShowListingPage(false)
+//   }, [address])
+
+//   if (!isMounted) {
+//     return null
+//   }
+
+//   return (
+//     <>
+//       <Head />
+//       <Layout>
+//         <Flex
+//           direction="column"
+//           css={{
+//             px: '$4',
+//             py: 40,
+//             '@sm': {
+//               px: '$5',
+//             },
+//           }}
+//         >
+//           {isConnected ? (
+//             <>
+//               {showListingPage && !isSmallDevice ? (
+//                 <BatchListings
+//                   selectedItems={selectedItems}
+//                   setSelectedItems={setSelectedItems}
+//                   setShowListingPage={setShowListingPage}
+//                 />
+//               ) : (
+//                 <>
+//                   {isSmallDevice ? (
+//                     <Flex
+//                       align="start"
+//                       direction="column"
+//                       justify="between"
+//                       css={{ gap: '$4' }}
+//                     >
+//                       <Text style="h4" css={{}}>
+//                         Portfolio
+//                       </Text>
+//                       <ChainToggle />
+//                     </Flex>
+//                   ) : (
+//                     <Flex align="center" justify="between" css={{ gap: '$4' }}>
+//                       <Text style="h4" css={{}}>
+//                         Portfolio
+//                       </Text>
+//                       <ChainToggle />
+//                     </Flex>
+//                   )}
+//                   <Tabs.Root defaultValue="items">
+//                     <Flex
+//                       css={{
+//                         overflowX: 'scroll',
+//                         '@sm': { overflowX: 'auto' },
+//                       }}
+//                     >
+//                       <TabsList
+//                         style={{
+//                           whiteSpace: 'nowrap',
+//                           width: '100%',
+//                         }}
+//                       >
+{
+  const router = useRouter()
+  const { address: accountAddress, isConnected } = useAccount()
+  const address = router.query.address
+    ? (router.query.address[0] as `0x${string}`)
+    : accountAddress
+  const [tabValue, setTabValue] = useState('items')
+  const [itemView, setItemView] = useState<ItemView>('list')
 
   const [activityTypes, setActivityTypes] = useState<ActivityTypes>(['sale'])
   const [activityFiltersOpen, setActivityFiltersOpen] = useState(true)
@@ -60,6 +171,8 @@ const IndexPage: NextPage = () => {
     useState<PortfolioSortingOption>('acquiredAt')
   const isSmallDevice = useMediaQuery({ maxWidth: 905 })
   const isMounted = useMounted()
+  const isOwner =
+    !router.query.address || router.query.address[0] === accountAddress
 
   let collectionQuery: Parameters<typeof useUserCollections>['1'] = {
     limit: 100,
@@ -73,8 +186,11 @@ const IndexPage: NextPage = () => {
     collectionQuery.community = chain.community
   }
 
-  const { data: collections, isLoading: collectionsLoading } =
-    useUserCollections(address as string, collectionQuery)
+  const {
+    data: collections,
+    isLoading: collectionsLoading,
+    fetchNextPage,
+  } = useUserCollections(address as string, collectionQuery)
 
   // Batch listing logic
   const [showListingPage, setShowListingPage] = useState(false)
@@ -88,6 +204,42 @@ const IndexPage: NextPage = () => {
     setSelectedItems([])
     setShowListingPage(false)
   }, [address])
+
+  useEffect(() => {
+    let tab = tabValue
+
+    let deeplinkTab: string | null = null
+    if (typeof window !== 'undefined') {
+      const params = new URL(window.location.href).searchParams
+      deeplinkTab = params.get('tab')
+    }
+
+    if (deeplinkTab) {
+      switch (deeplinkTab) {
+        case 'items':
+          tab = 'items'
+          break
+        case 'collections':
+          tab = 'collections'
+          break
+        case 'listings':
+          tab = 'listings'
+          break
+        case 'offers':
+          tab = 'offers'
+          break
+        case 'activity':
+          tab = 'activity'
+          break
+      }
+    }
+    setTabValue(tab)
+  }, [isSmallDevice, router.asPath])
+
+  useEffect(() => {
+    router.query.tab = tabValue
+    router.push(router, undefined, { shallow: true })
+  }, [tabValue])
 
   if (!isMounted) {
     return null
@@ -137,7 +289,11 @@ const IndexPage: NextPage = () => {
                       <ChainToggle />
                     </Flex>
                   )}
-                  <Tabs.Root defaultValue="items">
+                  <Tabs.Root
+                    defaultValue="items"
+                    value={tabValue}
+                    onValueChange={(value) => setTabValue(value)}
+                  >
                     <Flex
                       css={{
                         overflowX: 'scroll',
