@@ -16,6 +16,8 @@ import { useMounted } from '../../hooks'
 import { useAccount } from 'wagmi'
 import { ProfileDropdown } from './ProfileDropdown'
 import CartButton from './CartButton'
+import Wallet from './Wallet'
+import { AccountSidebar } from 'components/navbar/AccountSidebar'
 
 export const NAVBAR_HEIGHT = 81
 export const NAVBAR_HEIGHT_MOBILE = 77
@@ -58,7 +60,7 @@ const Navbar = () => {
     >
       <Box css={{ flex: 1 }}>
         <Flex align="center">
-          <Link href="/">
+          <Link href="/collection/ethereum/0x26baebef64ba69705adff49d3c10bf8ed5fe1573">
             <Box css={{ width: 34, cursor: 'pointer' }}>
               <Image
                 src="/aura.png"
@@ -97,7 +99,7 @@ const Navbar = () => {
     >
       <Box css={{ flex: 1 }}>
         <Flex align="center">
-          <Link href="/">
+          <Link href="/collection/ethereum/0x26baebef64ba69705adff49d3c10bf8ed5fe1573">
             <Box css={{ width: 112, cursor: 'pointer' }}>
               {theme == 'dark' ? (
                 <Image
@@ -111,7 +113,7 @@ const Navbar = () => {
                   src="/aura-light.png"
                   width={112}
                   height={36}
-                  alt="Reservoir"
+                  alt="Aura"
                 />
               )}
             </Box>
@@ -125,9 +127,9 @@ const Navbar = () => {
             />
           </Box>
           <Flex align="center" css={{ gap: '$5', mr: '$5' }}>
-            <Link href="/collection-rankings">
+            <Link href="/collection/ethereum/0x26baebef64ba69705adff49d3c10bf8ed5fe1573">
               <NavItem active={router.pathname == '/collection-rankings'}>
-                Collections
+                Collection
               </NavItem>
             </Link>
             <Link href="/portfolio">
@@ -136,9 +138,9 @@ const Navbar = () => {
             <Link href="/mint">
               <NavItem active={router.pathname == '/mint'}>Mint Aura Pass</NavItem>
             </Link>
-            <Link href="/domains">
+            {/* <Link href="/domains">
               <NavItem active={router.pathname == '/mint'}>Aura Domain Service</NavItem>
-            </Link>
+            </Link> */}
           </Flex>
         </Flex>
       </Box>
@@ -147,7 +149,7 @@ const Navbar = () => {
         <ThemeSwitcher />
         <CartButton />
         {isConnected ? (
-          <ProfileDropdown />
+          <AccountSidebar />
         ) : (
           <Box css={{ maxWidth: '185px' }}>
             <ConnectWalletButton />
