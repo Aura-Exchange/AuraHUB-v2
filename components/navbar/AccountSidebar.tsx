@@ -66,7 +66,7 @@ export const AccountSidebar: FC = () => {
         {open && (
           <DialogPrimitive.DialogPortal forceMount>
             <AnimatedOverlay
-              css={{ backgroundColor: '$sidebarOverlay' }}
+              //css={{ backgroundColor: '$sidebarOverlay' }}
               style={{ opacity: 0.6 }}
             />
             <Content
