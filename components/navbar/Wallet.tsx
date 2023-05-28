@@ -201,7 +201,7 @@ const Wallet = () => {
         <Button
           css={{ width: '100%', justifyContent: 'center' }}
           onClick={() => {
-            window.open('https://app.uniswap.org/', '_blank')
+            window.open('https://buy.onramper.com?pk_prod_01H0G32PJV4921SKKEPFDXQ91B?themeName=dark&containerColor=141416&primaryColor=46de8c&secondaryColor=3f3f43&cardColor=272727&primaryTextColor=ffffff&secondaryTextColor=ffffff&borderRadius=0.5&wgBorderRadius=1', '_blank')
           }}
         >
           Add Funds
