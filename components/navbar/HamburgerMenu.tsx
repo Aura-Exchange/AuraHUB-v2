@@ -444,6 +444,19 @@ const HamburgerMenu = () => {
                 Explore
               </Text>
             </Link>
+            <Link href="/mint" legacyBehavior>
+              <Text
+                style="subtitle1"
+                css={{
+                  borderBottom: '1px solid $gray4',
+                  cursor: 'pointer',
+                  pb: '$4',
+                  pt: '24px',
+                }}
+              >
+                Mint Aura Pass
+              </Text>
+            </Link>
             <Link href="/portfolio" legacyBehavior>
               <Text
                 style="subtitle1"
