@@ -34,6 +34,7 @@ import supportedChains from 'utils/chains'
 import { useMarketplaceChain } from 'hooks'
 import ChainContextProvider from 'context/ChainContextProvider'
 import { Analytics } from '@vercel/analytics/react'
+import { faSleigh } from '@fortawesome/free-solid-svg-icons'
 
 
 //CONFIGURABLE: Use nextjs to load your own custom font: https://nextjs.org/docs/basic-features/font-optimization
@@ -51,7 +52,7 @@ const { chains, provider } = configureChains(supportedChains, [
 ])
 
 const { connectors } = getDefaultWallets({
-  appName: 'Reservoir Marketplace',
+  appName: 'Aura HUB',
   chains,
 })
 
@@ -135,7 +136,7 @@ function MyApp({
     try {
       const url = new URL(process.env.NEXT_PUBLIC_HOST_URL)
       source = url.host
-    } catch (e) {}
+    } catch (e) { }
   }
 
   return (
@@ -172,9 +173,15 @@ function MyApp({
           <CartProvider>
             <Tooltip.Provider>
               <RainbowKitProvider
+                coolMode
                 chains={chains}
                 theme={rainbowKitTheme}
-                modalSize="compact"
+                showRecentTransactions={true}
+                modalSize="wide"
+                appInfo={{
+                  appName: 'Aura Exchange HUB',
+                  learnMoreUrl: 'https://learnaboutcryptowallets.example',
+                }}
               >
                 <ToastContextProvider>
                   <FunctionalComponent {...pageProps} />
