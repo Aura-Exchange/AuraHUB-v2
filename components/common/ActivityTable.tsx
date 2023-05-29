@@ -262,16 +262,17 @@ const ActivityTableRow: FC<ActivityTableRowProps> = ({ activity }) => {
                 </Flex>
               </Link>
               {activity.price &&
-              activity.price !== 0 &&
+              activity.price.amount?.decimal !== 0 &&
               activity.type &&
-              !['transfer', 'mint'].includes(activity.type) ? (
+              activity.type !== 'transfer' ? (
                 <Flex
                   direction="column"
                   align="center"
                   css={{ minWidth: 'max-content', pl: '$2' }}
                 >
                   <FormatCryptoCurrency
-                    amount={activity.price}
+                    amount={activity.price.amount?.decimal}
+                    address={activity.price.currency?.contract}
                     logoHeight={16}
                     textStyle="subtitle1"
                     css={{ mr: '$2', fontSize: '14px' }}
@@ -291,7 +292,7 @@ const ActivityTableRow: FC<ActivityTableRowProps> = ({ activity }) => {
               </Text>
               {activity.fromAddress &&
               activity.fromAddress !== constants.AddressZero ? (
-                <Link href={`/profile/${activity.fromAddress}`}>
+                <Link href={`/portfolio/${activity.fromAddress}`}>
                   <Text
                     style="subtitle3"
                     css={{
@@ -315,7 +316,7 @@ const ActivityTableRow: FC<ActivityTableRowProps> = ({ activity }) => {
               </Text>
               {activity.toAddress &&
               activity.toAddress !== constants.AddressZero ? (
-                <Link href={`/profile/${activity.toAddress}`}>
+                <Link href={`/portfolio/${activity.toAddress}`}>
                   <Text
                     style="subtitle3"
                     css={{
@@ -394,12 +395,13 @@ const ActivityTableRow: FC<ActivityTableRowProps> = ({ activity }) => {
       </TableCell>
       <TableCell>
         {activity.price &&
-        activity.price !== 0 &&
+        activity.price.amount?.decimal !== 0 &&
         activity.type &&
-        !['transfer', 'mint'].includes(activity.type) ? (
+        activity.type !== 'transfer' ? (
           <Flex align="center">
             <FormatCryptoCurrency
-              amount={activity.price}
+              amount={activity.price.amount?.decimal}
+              address={activity.price.currency?.contract}
               logoHeight={16}
               textStyle="subtitle1"
               css={{ mr: '$2', fontSize: '14px' }}
@@ -429,7 +431,7 @@ const ActivityTableRow: FC<ActivityTableRowProps> = ({ activity }) => {
               From
             </Text>
             <Link
-              href={`/profile/${activity.fromAddress}`}
+              href={`/portfolio/${activity.fromAddress}`}
               style={{
                 maxWidth: '100%',
                 minWidth: 0,
@@ -463,7 +465,7 @@ const ActivityTableRow: FC<ActivityTableRowProps> = ({ activity }) => {
               To
             </Text>
             <Link
-              href={`/profile/${activity.toAddress}`}
+              href={`/portfolio/${activity.toAddress}`}
               style={{
                 maxWidth: '100%',
                 minWidth: 0,
