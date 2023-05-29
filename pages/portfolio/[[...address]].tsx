@@ -204,6 +204,7 @@ const IndexPage: NextPage = () => {
                                                 <TabsTrigger value="listings">Listings</TabsTrigger>
                                                 <TabsTrigger value="offers">Offers Made</TabsTrigger>
                                                 <TabsTrigger value="activity">Activity</TabsTrigger>
+                                                <TabsTrigger value="buy">Buy Crypto</TabsTrigger>
                                             </TabsList>
                                         </Flex>
 
@@ -220,18 +221,18 @@ const IndexPage: NextPage = () => {
                                                         collections={collections}
                                                         filterCollection={filterCollection}
                                                         setFilterCollection={setFilterCollection}
-                                                        loadMoreCollections={fetchNextPage}
+                                                    // loadMoreCollections={fetchNextPage}
                                                     />
                                                 ) : (
                                                     <TokenFilters
                                                         isLoading={collectionsLoading}
-                                                        isOwner={isOwner}
+                                                        // isOwner={isOwner}
                                                         open={tokenFiltersOpen}
                                                         setOpen={setTokenFiltersOpen}
                                                         collections={collections}
                                                         filterCollection={filterCollection}
                                                         setFilterCollection={setFilterCollection}
-                                                        loadMoreCollections={fetchNextPage}
+                                                    // loadMoreCollections={fetchNextPage}
                                                     />
                                                 )}
                                                 <Box
@@ -304,10 +305,10 @@ const IndexPage: NextPage = () => {
                                             </Flex>
                                         </TabsContent>
                                         <TabsContent value="listings">
-                                            <ListingsTable address={address} isOwner={isOwner} />
+                                            <ListingsTable address={address} />
                                         </TabsContent>
                                         <TabsContent value="offers">
-                                            <OffersTable address={address} isOwner={isOwner} />
+                                            <OffersTable address={address} />
                                         </TabsContent>
                                         <TabsContent value="activity">
                                             <Flex
@@ -348,6 +349,15 @@ const IndexPage: NextPage = () => {
                                                     />
                                                 </Box>
                                             </Flex>
+                                        </TabsContent>
+                                        <TabsContent value="buy">
+                                            <iframe
+                                                src="https://buy.onramper.com?pk_prod_01H0G32PJV4921SKKEPFDXQ91B?themeName=dark&containerColor=000000&primaryColor=46de8c&secondaryColor=3f3f43&cardColor=272727&primaryTextColor=ffffff&secondaryTextColor=ffffff&borderRadius=0.5&wgBorderRadius=1"
+                                                title="Onramper Widget"
+                                                height="630px"
+                                                width="400px"
+                                                allow="accelerometer; autoplay; camera; gyroscope; payment"
+                                            />
                                         </TabsContent>
                                     </Tabs.Root>
                                 </>
