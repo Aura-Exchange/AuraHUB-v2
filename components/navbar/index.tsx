@@ -74,6 +74,7 @@ const Navbar = () => {
         <MobileSearch key={`${router.asPath}-search`} />
         <CartButton />
         <HamburgerMenu key={`${router.asPath}-hamburger`} />
+        <ConnectWalletButton />
       </Flex>
     </Flex>
   ) : (

@@ -20,18 +20,19 @@ export const ConnectWalletButton: FC<Props> = () => {
             style={{
               flex: '1',
               display: 'flex',
-              justifyContent: 'flex',
+              justifyContent: 'end',
             }}
           >
             {(() => {
               if (!mounted || !account || !chain) {
                 return (
-                  <Button
+                  <Button 
                     css={{ flex: 1, justifyContent: 'center'}}
                     corners="rounded"
                     onClick={openConnectModal}
                     onClickCapture={trackClick}
                     type="button"
+                    size="xs"
                   >
                     Connect Wallet
                   </Button>
