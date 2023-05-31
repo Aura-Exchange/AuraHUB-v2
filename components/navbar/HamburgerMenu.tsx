@@ -568,9 +568,9 @@ const HamburgerMenu = () => {
                 <Text style="subtitle1">Docs</Text>
               </Anchor>
             </Flex>
-            <Box>
+            {/* <Box>
               <ConnectWalletButton />
-            </Box>
+            </Box> */}
           </Flex>
         )}
         <Flex
