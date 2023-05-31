@@ -18,7 +18,7 @@ import dayjs from 'dayjs'
 import { constants } from 'ethers'
 import { parseUnits } from 'ethers/lib/utils.js'
 import { useMarketplaceChain } from 'hooks'
-import { UserToken } from 'pages/portfolio'
+import { UserToken } from 'pages/portfolio/[[...address]]'
 import { FC, useCallback, useEffect, useState } from 'react'
 import { useNetwork, useSigner, useSwitchNetwork } from 'wagmi'
 import { ApprovalCollapsible } from './ApprovalCollapsible'
@@ -105,8 +105,7 @@ const BatchListModal: FC<Props> = ({
       switch (stepData.currentStep.kind) {
         case 'transaction': {
           setStepTitle(
-            `Approve ${
-              orderKind?.[0].toUpperCase() + orderKind?.slice(1)
+            `Approve ${orderKind?.[0].toUpperCase() + orderKind?.slice(1)
             } to access item\nin your wallet`
           )
           break
@@ -322,17 +321,17 @@ const BatchListModal: FC<Props> = ({
               <Flex direction="column" css={{ gap: '$3', width: '100%' }}>
                 {stepData.currentStep.kind === 'transaction'
                   ? stepData.currentStep.items?.map((item, i) => {
-                      if (item.data)
-                        return (
-                          <ApprovalCollapsible
-                            key={i}
-                            item={item}
-                            batchListingData={stepData.listings}
-                            selectedMarketplaces={selectedMarketplaces}
-                            open={item.status == 'incomplete'}
-                          />
-                        )
-                    })
+                    if (item.data)
+                      return (
+                        <ApprovalCollapsible
+                          key={i}
+                          item={item}
+                          batchListingData={stepData.listings}
+                          selectedMarketplaces={selectedMarketplaces}
+                          open={item.status == 'incomplete'}
+                        />
+                      )
+                  })
                   : null}
               </Flex>
               {stepData.currentStep.kind === 'signature' ? (

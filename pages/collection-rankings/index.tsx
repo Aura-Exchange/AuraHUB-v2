@@ -47,7 +47,7 @@ interface fireBaseProject {
   contractAddress: string,
   chain: string,
   embedURL: string,
-  buttonText:string
+  buttonText: string
 }
 
 const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
@@ -140,9 +140,9 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
   };
 
   const getProjectList = async () => {
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const dbref = ref(db)
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const dbref = ref(db)
 
 
     get(child(dbref, 'Projects')).then((snapshot) => {
@@ -170,7 +170,7 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
 
   useEffect(() => {
     let isVisible = !!loadMoreObserver?.isIntersecting
-    
+
     getProjectList()
     if (isVisible) {
       fetchNextPage()
@@ -211,23 +211,23 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
           <Slider {...settings}>
             {featuredProjects.map((project) => (
               <div key={project.name} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-              <div style={{ display: 'flex', backgroundColor: 'white', justifyContent: 'center', width: '100%', paddingTop: '20%', position: 'relative',objectFit:"cover",objectPosition:"center" }}>
-                <Image
-                  src={project.iconURL}
-                  // src = '/Tree.png'
-                  alt={project.name + ' icon'}
-                  layout="fill"
-                  objectFit="cover"
-                  objectPosition="center"
-                />
-              </div>
-                <div style={{ display: 'flex', width: '100%', position:'sticky' }}>
-                  <div style={{ display: 'flex', justifyContent: 'center', width: '100%', paddingLeft:'1%'}}>
+                <div style={{ display: 'flex', backgroundColor: 'white', justifyContent: 'center', width: '100%', paddingTop: '20%', position: 'relative', objectFit: "cover", objectPosition: "center" }}>
+                  <Image
+                    src={project.iconURL}
+                    // src = '/Tree.png'
+                    alt={project.name + ' icon'}
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="center"
+                  />
+                </div>
+                <div style={{ display: 'flex', width: '100%', position: 'sticky' }}>
+                  <div style={{ display: 'flex', justifyContent: 'center', width: '100%', paddingLeft: '1%' }}>
                     <div>
                       <Text style={"h4"} ellipsify>{project.name}</Text>
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'end', width: '100%', paddingTop:'.4%', paddingRight:'1%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'end', width: '100%', paddingTop: '.4%', paddingRight: '1%' }}>
                       <Link
                         href={{
                           pathname: `/featured/${project.name}/${project.contractAddress}`,
@@ -274,9 +274,9 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
                   setSortByTime(option)
                 }}
               />
-              <ChainToggle />
             </Flex>
           </Flex>
+          <ChainToggle />
           {isSSR || !isMounted ? null : (
             <CollectionRankingsTable
               collections={collections}
@@ -319,26 +319,26 @@ export const getStaticProps: GetStaticProps<{
   ssr: {
     collections: ChainCollections
   },
-  firebaseConfig:FirebaseConfig
+  firebaseConfig: FirebaseConfig
 }> = async () => {
 
   const apiKey = process.env.FIREBASE_API_KEY!
-    const auth = process.env.FIREBASE_AUTH_DOMAIN!
-    const dbURL = process.env.FIREBASE_DATABASE_URL!
-    const projectID = process.env.FIREBASE_PROJECT_ID!
-    const storageBucket= process.env.FIREBASE_STORAGE_BUCKET!
-    const messagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID!
-    const appID = process.env.FIREBASE_APP_ID!
+  const auth = process.env.FIREBASE_AUTH_DOMAIN!
+  const dbURL = process.env.FIREBASE_DATABASE_URL!
+  const projectID = process.env.FIREBASE_PROJECT_ID!
+  const storageBucket = process.env.FIREBASE_STORAGE_BUCKET!
+  const messagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID!
+  const appID = process.env.FIREBASE_APP_ID!
 
-    const firebaseConfig = {
-      apiKey: apiKey,
-      authDomain: auth,
-      databaseURL: dbURL,
-      projectId:projectID,
-      storageBucket:storageBucket,
-      messagingSenderId: messagingSenderId,
-      appId: appID
-    };
+  const firebaseConfig = {
+    apiKey: apiKey,
+    authDomain: auth,
+    databaseURL: dbURL,
+    projectId: projectID,
+    storageBucket: storageBucket,
+    messagingSenderId: messagingSenderId,
+    appId: appID
+  };
 
   const collectionQuery: paths['/collections/v5']['get']['parameters']['query'] =
   {
@@ -373,7 +373,7 @@ export const getStaticProps: GetStaticProps<{
   })
 
   return {
-    props: { ssr: { collections }, firebaseConfig:firebaseConfig},
+    props: { ssr: { collections }, firebaseConfig: firebaseConfig },
     revalidate: 5,
   }
 }

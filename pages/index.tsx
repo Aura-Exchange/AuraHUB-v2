@@ -114,9 +114,9 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
             <Text style="body1" css={{ mb: 48 }}>
               List on multiple marketplaces at once
               Completely gas free!
-              <br/>
+              <br />
               List on all major marketplaces at once, with zero listing fees.
-              <br/>
+              <br />
               We aggregate over 160 NFT marketplaces to give you the best
               possible exsposure to sell your digital assets.
             </Text>
@@ -156,9 +156,9 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                   setSortByTime(option)
                 }}
               />
-              <ChainToggle />
             </Flex>
           </Flex>
+          <ChainToggle />
           {isSSR || !isMounted ? null : (
             <CollectionRankingsTable
               collections={collections}
