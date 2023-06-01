@@ -48,8 +48,16 @@ const ChainToggle: FC = () => {
               <Box
                 css={{
                   width: 56,
+                  maxWidth: 56,
+                  height: 56,
                   display: 'flex',
                   justifyContent: 'center',
+                  alignItems: 'center',
+                  margin: 'auto',
+                  '@media (max-width: 480px)': {
+                    /* Additional styles specific to smaller screens */
+                    width:'auto'
+                  }
                 }}
               >
                 <img
