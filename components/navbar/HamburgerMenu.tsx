@@ -227,7 +227,7 @@ const HamburgerMenu = () => {
             }}
           >
             <Flex direction="column">
-              <Link href="/" legacyBehavior>
+              <Link href="/collection-rankings" legacyBehavior>
                 <Text
                   style="subtitle1"
                   css={{
@@ -235,10 +235,22 @@ const HamburgerMenu = () => {
                     cursor: 'pointer',
                     pb: '$4',
                     pt: '24px',
-                    width: '100%',
                   }}
                 >
-                  Explore
+                  Collections
+                </Text>
+              </Link>
+              <Link href="/mint" legacyBehavior>
+                <Text
+                  style="subtitle1"
+                  css={{
+                    borderBottom: '1px solid $gray4',
+                    cursor: 'pointer',
+                    pb: '$4',
+                    pt: '24px',
+                  }}
+                >
+                  Mint Aura Membership
                 </Text>
               </Link>
               <Link href="/portfolio" legacyBehavior>
@@ -269,9 +281,6 @@ const HamburgerMenu = () => {
                 <Text style="subtitle1">Docs</Text>
               </Anchor>
             </Flex>
-            {/* <Box>
-              <ConnectWalletButton />
-            </Box> */}
           </Flex>
         )}
         <Flex
