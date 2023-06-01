@@ -1,12 +1,12 @@
-<h3 align="center">Reservoir Market v2</h3>
+<h3 align="center">Aura Exchange PCM</h3>
   <p align="center">
-An open source NFT marketplace built on Reservoir.
+Private Collection Marketplace
 
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
-Reservoir Market v2 is an open source marketplace built with Reservoir APIs that enables access to instant liquidity aggregated from major marketplace. We encourage developers to use this project as a reference for their own implementation or even fork the project and make their own meaningful changes. The project is lightly configurable refer to the configuration variables below. If you're looking for a no-code solution check out our [v1 marketplace](https://github.com/reservoirprotocol/marketplace-v1).
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -48,28 +48,28 @@ $ npm install
 
 ### Configuration
 
-Reservoir Market v2 is lightly configurable with the configurations below. You can either add these to a `.env.production` and `.env.development` or add env variables to a deployment platform like [vercel](https://vercel.com/).
+Aura PCM `.env.production` 
 
 **Environment Variables**
 | Environment Variable | Required | Description | Example |
 |--------------------------------|----------|-------------------------------------------------------------------------------------|---------------------|
-| NEXT_PUBLIC_HOST_URL | `true` | The domain that the deployed project is hosted on. | http://localhost:3000 |
-| ETH_RESERVOIR_API_KEY | `false` | Ethereum Reservoir API key provided by the Reservoir Protocol. [Get your own API key](https://reservoir.tools/request-api-key). | 123e4567-e89b-12d3-a456-426614174000 |
-| GOERLI_RESERVOIR_API_KEY | `false` | Goerli Reservoir API key provided by the Reservoir Protocol. [Get your own API key](https://reservoir.tools/request-api-key). | 123e4567-e89b-12d3-a456-426614174000 |
-| POLYGON_RESERVOIR_API_KEY | `false` | Polygon Reservoir API key provided by the Reservoir Protocol. [Get your own API key](https://reservoir.tools/request-api-key). | 123e4567-e89b-12d3-a456-426614174000 |
-| NEXT_PUBLIC_ALCHEMY_ID | `true` | Alchemy API key required for removing rate limiting restrictions. [Get your own API key here](https://docs.alchemy.com/alchemy/introduction/getting-started#1.create-an-alchemy-key). | 123e4567-e89b-12d3-a456-426614174000 |
 | NEXT_PUBLIC_ETH_COLLECTION_SET_ID | `false` | Use this to configure a community marketplace. This will only impact the mainnet network. Generate your collection set ID [here](https://docs.reservoir.tools/reference/postcollectionssetsv1). | f566ba09c14f56aedeed3f77e3ae7f5ff28b9177714d3827a87b7a182f8f90ff |
-| NEXT_PUBLIC_POLYGON_COLLECTION_SET_ID | `false` | Use this to configure a community marketplace. This will only impact the polygon network. Generate your collection set ID [here](https://docs.reservoir.tools/reference/postcollectionssetsv1). | f566ba09c14f56aedeed3f77e3ae7f5ff28b9177714d3827a87b7a182f8f90ff |
-| NEXT_PUBLIC_GOERLI_COLLECTION_SET_ID | `false` | Use this to configure a community marketplace. This will only impact the goerli network. Generate your collection set ID [here](https://docs.reservoir.tools/reference/postcollectionssetsv1). | f566ba09c14f56aedeed3f77e3ae7f5ff28b9177714d3827a87b7a182f8f90ff |
-| NEXT_PUBLIC_ETH_COMMUNITY | `false` | Use this to configure a community marketplace. Note: Community IDs are only available for certain communities. This will only impact the mainnet network. | artblocks |
-| NEXT_PUBLIC_POLYGON_COMMUNITY | `false` | Use this to configure a community marketplace. Note: Community IDs are only available for certain communities. This will only impact the polygon network | artblocks |
-| NEXT_PUBLIC_GOERLI_COMMUNITY | `false` | Use this to configure a community marketplace. Note: Community IDs are only available for certain communities. This will only impact the goerli network | artblocks |
-| NEXT_PUBLIC_NORMALIZE_ROYALTIES | `false` | Enables royalty normalization. Refer to [docs](https://docs.reservoir.tools/docs/normalized-royalties) for more info. | true/false |
-| NEXT_PUBLIC_DATADOG_CLIENT_TOKEN | `false` | Datadog client token for configuring analytics. | pubdaddswww4dad449dadas12ada123bae |
-| NEXT_PUBLIC_DATADOG_APPLICATION_ID | `false` | Datadog application id for configuring analytics. | 123cccbb-1234-1111-4411-abc12345612afgds |
-| NEXT_PUBLIC_MARKETPLACE_SOURCE | `false` | Marketplace source, used to attribute a source to orders. Must be a valid domain | reservoir.tools |
+NEXT_PUBLIC_ALCHEMY_ID=
+FIREBASE_API_KEY=
+FIREBASE_AUTH_DOMAIN=
+FIREBASE_DATABASE_URL=
+FIREBASE_PROJECT_ID=
+FIREBASE_STORAGE_BUCKET=
+FIREBASE_MESSAGING_SENDER_ID=
+FIREBASE_APP_ID=
+NEXT_PUBLIC_HOST_URL=
+NEXT_PUBLIC_MARKETPLACE_SOURCE=
+ETH_RESERVOIR_API_KEY=
 
-In addition to the configuration above we've also added comments prefixed with `CONFIGURABLE:` throughout the app pointing out some pieces of code where you could customize functionality. After cloning the app make sure to search the repo for the aforementioned prefix.
+### Navbar 
+For each PCM navbar, the Aura logo should redirect to https://{PROJECT_NAME}.auraexchange.org/{CHAIN}/{CONTRACT_ADDRESS} is a single collection PCM
+
+If multiple collections, project founder can deside which collection for this page to be. 
 
 ### Run the App
 
@@ -93,7 +93,8 @@ This is a Next.js app that can be easily deployed using [Vercel](https://vercel.
 
 ## Contact
 
-Twitter: [@reservoir0x](https://twitter.com/reservoir0x)
-Project Link: [Reservoir](https://reservoirprotocol.github.io/)
+Twitter: [@AuraExchange](https://twitter.com/AuraExchange)
+Project Link: [AuraHUB](https://hub.auraexchange.org)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+# AuraPCMBoilerplate
