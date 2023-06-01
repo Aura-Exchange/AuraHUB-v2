@@ -16,6 +16,7 @@ import { useMounted } from '../../hooks'
 import { useAccount } from 'wagmi'
 import { ProfileDropdown } from './ProfileDropdown'
 import CartButton from './CartButton'
+import { AccountSidebar } from './AccountSidebar'
 
 export const NAVBAR_HEIGHT = 81
 export const NAVBAR_HEIGHT_MOBILE = 77
@@ -64,7 +65,7 @@ const Navbar = () => {
                 src="/aura.png"
                 width={112}
                 height={36}
-                alt="Reservoir"
+                alt="Aura HUB"
               />
             </Box>
           </Link>
@@ -137,9 +138,9 @@ const Navbar = () => {
             <Link href="/mint">
               <NavItem active={router.pathname == '/mint'}>Mint Aura Pass</NavItem>
             </Link>
-            <Link href="/domains">
+            {/* <Link href="/domains">
               <NavItem active={router.pathname == '/mint'}>Aura Domain Service</NavItem>
-            </Link>
+            </Link> */}
           </Flex>
         </Flex>
       </Box>
@@ -148,7 +149,8 @@ const Navbar = () => {
         <ThemeSwitcher />
         <CartButton />
         {isConnected ? (
-          <ProfileDropdown />
+          <AccountSidebar />
+          // <ProfileDropdown />
         ) : (
           <Box css={{ maxWidth: '185px' }}>
             <ConnectWalletButton />
