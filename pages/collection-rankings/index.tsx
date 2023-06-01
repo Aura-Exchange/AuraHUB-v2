@@ -274,9 +274,10 @@ const IndexPage: NextPage<Props> = ({ ssr, firebaseConfig }) => {
                   setSortByTime(option)
                 }}
               />
+              <ChainToggle />
             </Flex>
           </Flex>
-          <ChainToggle />
+          
           {isSSR || !isMounted ? null : (
             <CollectionRankingsTable
               collections={collections}

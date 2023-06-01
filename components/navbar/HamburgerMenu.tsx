@@ -441,7 +441,7 @@ const HamburgerMenu = () => {
                   pt: '24px',
                 }}
               >
-                Explore
+                Collections
               </Text>
             </Link>
             <Link href="/mint" legacyBehavior>
@@ -549,7 +549,7 @@ const HamburgerMenu = () => {
                     pt: '24px',
                   }}
                 >
-                  Mint Aura Membership
+                  Mint Aura Pass
                 </Text>
               </Link>
               <Link href="/portfolio" legacyBehavior>

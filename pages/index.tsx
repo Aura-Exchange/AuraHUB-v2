@@ -156,9 +156,10 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                   setSortByTime(option)
                 }}
               />
+              <ChainToggle />
             </Flex>
           </Flex>
-          <ChainToggle />
+          
           {isSSR || !isMounted ? null : (
             <CollectionRankingsTable
               collections={collections}
@@ -204,7 +205,7 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
 
           </Box>
           <Text style="h1" as="h1">
-            Aura Exchange Membership
+            Aura Exchange Pass
             <br />
             <Text style="body1" css={{ mb: 48 }}>
               Aura shares 70% of all trading profit revenue with our community
