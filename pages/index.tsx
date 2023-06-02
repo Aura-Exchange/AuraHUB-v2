@@ -84,7 +84,10 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
           <Flex
             direction="column"
             align="center"
-            css={{ mx: 'auto', maxWidth: 728, pt: '$5', textAlign: 'center' }}
+            css={{ mx: 'auto', maxWidth: 728, pt: '$5', textAlign: 'center',
+          '@media screen and (max-width: 768px)': { // hide on screens smaller than 768px
+              display: 'none',
+            }, }}
           >
             <Text style="h3" css={{ mb: 24 }}>
               Aura Exchange
