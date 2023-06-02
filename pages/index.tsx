@@ -85,7 +85,7 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
             direction="column"
             align="center"
             css={{ mx: 'auto', maxWidth: 728, pt: '$5', textAlign: 'center',
-          '@media screen and (max-width: 768px)': { // hide on screens smaller than 768px
+          '@media screen and (min-width: 768px)': { // hide on screens smaller than 768px
               display: 'none',
             }, }}
           >
