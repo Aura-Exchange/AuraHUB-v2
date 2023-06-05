@@ -138,6 +138,9 @@ const Navbar = () => {
             <Link href="/mint">
               <NavItem active={router.pathname == '/mint'}>Mint Aura Pass</NavItem>
             </Link>
+            <Link href="/foudners-portal">
+              <NavItem active={router.pathname == '/foudners-portal'}>Founders Portal</NavItem>
+            </Link>
             {/* <Link href="/domains">
               <NavItem active={router.pathname == '/mint'}>Aura Domain Service</NavItem>
             </Link> */}
