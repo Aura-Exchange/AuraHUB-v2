@@ -205,6 +205,7 @@ const IndexPage: NextPage = () => {
                                                 <TabsTrigger value="offers">Offers Made</TabsTrigger>
                                                 <TabsTrigger value="activity">Activity</TabsTrigger>
                                                 <TabsTrigger value="buy">Buy Crypto</TabsTrigger>
+                                                <TabsTrigger value='revoke'>Revoke.cash</TabsTrigger>
                                             </TabsList>
                                         </Flex>
 
@@ -358,6 +359,18 @@ const IndexPage: NextPage = () => {
                                                 width="400px"
                                                 allow="accelerometer; autoplay; camera; gyroscope; payment"
                                             />
+                                        </TabsContent>
+                                        <TabsContent value="revoke">
+                                            <Flex css={{
+                                                height: '100vh',
+                                                flexDirection: 'column'
+                                            }}>
+                                                <iframe
+                                                    src={'https://revoke.cash/'}
+                                                    width="100%"
+                                                    height="100%"
+                                                />
+                                            </Flex>
                                         </TabsContent>
                                     </Tabs.Root>
                                 </>
