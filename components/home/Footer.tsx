@@ -56,6 +56,21 @@ const companySectionLinks = [
   },
 ]
 
+const foundersSectionLinks = [
+  {
+    name: 'Founders Portal',
+    href: 'https://founders-portal.auraexchange.org',
+  },
+  {
+    name: 'Gas Estimator',
+    href: 'https://founders-portal.auraexchange.org/gas',
+  },
+  {
+    name: 'Deploy',
+    href: 'https://founders-portal.auraexchange.org/explore',
+  },
+]
+
 export const Footer = () => {
   return (
     <Flex
@@ -83,6 +98,12 @@ export const Footer = () => {
         <Flex direction="column">
           <SectionTitle title="Company" />
           {companySectionLinks.map((props) => (
+            <SectionLink key={props.name} {...props} />
+          ))}
+        </Flex>
+        <Flex direction="column">
+          <SectionTitle title="Founders" />
+          {foundersSectionLinks.map((props) => (
             <SectionLink key={props.name} {...props} />
           ))}
         </Flex>
