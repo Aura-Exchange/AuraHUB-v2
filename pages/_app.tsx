@@ -11,10 +11,19 @@ import { darkTheme, globalReset } from 'stitches.config'
 import '@rainbow-me/rainbowkit/styles.css'
 import {
   RainbowKitProvider,
-  getDefaultWallets,
+  connectorsForWallets,
   darkTheme as rainbowDarkTheme,
   lightTheme as rainbowLightTheme,
 } from '@rainbow-me/rainbowkit'
+import { 
+  ledgerWallet,
+  injectedWallet,
+  rainbowWallet,
+  metaMaskWallet,
+  coinbaseWallet,
+  walletConnectWallet,
+  trustWallet,
+} from '@rainbow-me/rainbowkit/wallets'
 import { WagmiConfig, createClient, configureChains } from 'wagmi'
 import * as Tooltip from '@radix-ui/react-tooltip'
 import { publicProvider } from 'wagmi/providers/public'
@@ -51,10 +60,27 @@ const { chains, provider } = configureChains(supportedChains, [
   publicProvider(),
 ])
 
-const { connectors } = getDefaultWallets({
-  appName: 'Aura HUB',
-  chains,
-})
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Recommended',
+    wallets: [
+      injectedWallet({ chains }),
+      rainbowWallet({  chains }),
+      metaMaskWallet({ chains }),
+      coinbaseWallet({ chains, appName: 'My RainbowKit App' }),
+      
+    ],
+  },
+  {
+    groupName: 'Others',
+    wallets: [
+      walletConnectWallet({ chains }),
+      ledgerWallet({ chains}),
+      trustWallet({ chains }),
+      
+    ],
+  },
+]);
 
 const wagmiClient = createClient({
   autoConnect: true,
