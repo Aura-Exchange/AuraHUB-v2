@@ -7,27 +7,32 @@ import va from '@vercel/analytics'
 type Props = {}
 
 export const ConnectWalletButton: FC<Props> = () => {
+
+  const trackClick = () =>{
+    va.track('Connect Wallet')
+  }
+  
   return (
     <ConnectButton.Custom>
       {({ account, chain, openConnectModal, mounted }) => {
-        va.track('Connect Wallet');
-        openConnectModal();
         return (
           <Box
             style={{
               flex: '1',
               display: 'flex',
-              justifyContent: 'flex',
+              justifyContent: 'end',
             }}
           >
             {(() => {
               if (!mounted || !account || !chain) {
                 return (
-                  <Button
-                    css={{ flex: 1, justifyContent: 'center' }}
+                  <Button 
+                    css={{ flex: 1, justifyContent: 'center'}}
                     corners="rounded"
                     onClick={openConnectModal}
+                    onClickCapture={trackClick}
                     type="button"
+                    size="xs"
                   >
                     Connect Wallet
                   </Button>

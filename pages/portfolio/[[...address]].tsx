@@ -205,6 +205,7 @@ const IndexPage: NextPage = () => {
                                                 <TabsTrigger value="offers">Offers Made</TabsTrigger>
                                                 <TabsTrigger value="activity">Activity</TabsTrigger>
                                                 <TabsTrigger value="buy">Buy Crypto</TabsTrigger>
+                                                <TabsTrigger value='revoke'>Revoke.cash</TabsTrigger>
                                             </TabsList>
                                         </Flex>
 
@@ -352,12 +353,24 @@ const IndexPage: NextPage = () => {
                                         </TabsContent>
                                         <TabsContent value="buy">
                                             <iframe
-                                                src="https://buy.onramper.com?pk_prod_01H0G32PJV4921SKKEPFDXQ91B?themeName=dark&containerColor=000000&primaryColor=46de8c&secondaryColor=3f3f43&cardColor=272727&primaryTextColor=ffffff&secondaryTextColor=ffffff&borderRadius=0.5&wgBorderRadius=1"
+                                                src="https://buy.onramper.com/?apiKey=pk_prod_01H0G32PJV4921SKKEPFDXQ91B&themeName=dark&containerColor=141416&primaryColor=46de8c&secondaryColor=3f3f43&cardColor=272727&primaryTextColor=ffffff&secondaryTextColor=ffffff&borderRadius=0.5&wgBorderRadius=1"
                                                 title="Onramper Widget"
                                                 height="630px"
                                                 width="400px"
                                                 allow="accelerometer; autoplay; camera; gyroscope; payment"
                                             />
+                                        </TabsContent>
+                                        <TabsContent value="revoke">
+                                            <Flex css={{
+                                                height: '100vh',
+                                                flexDirection: 'column'
+                                            }}>
+                                                <iframe
+                                                    src={'https://revoke.cash/'}
+                                                    width="100%"
+                                                    height="100%"
+                                                />
+                                            </Flex>
                                         </TabsContent>
                                     </Tabs.Root>
                                 </>

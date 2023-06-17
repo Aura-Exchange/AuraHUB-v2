@@ -84,7 +84,10 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
           <Flex
             direction="column"
             align="center"
-            css={{ mx: 'auto', maxWidth: 728, pt: '$5', textAlign: 'center' }}
+            css={{ mx: 'auto', maxWidth: 728, pt: '$5', textAlign: 'center',
+          '@media screen and (min-width: 768px)': { // hide on screens smaller than 768px
+              display: 'none',
+            }, }}
           >
             <Text style="h3" css={{ mb: 24 }}>
               Aura Exchange
@@ -156,9 +159,10 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
                   setSortByTime(option)
                 }}
               />
+              <ChainToggle />
             </Flex>
           </Flex>
-          <ChainToggle />
+          
           {isSSR || !isMounted ? null : (
             <CollectionRankingsTable
               collections={collections}
@@ -204,7 +208,7 @@ const IndexPage: NextPage<Props> = ({ ssr }) => {
 
           </Box>
           <Text style="h1" as="h1">
-            Aura Exchange Membership
+            Aura Exchange Pass
             <br />
             <Text style="body1" css={{ mb: 48 }}>
               Aura shares 70% of all trading profit revenue with our community

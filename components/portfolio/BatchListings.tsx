@@ -63,9 +63,9 @@ const MINIMUM_AMOUNT = 0.000001
 
 const marketplaces = [
   {
-    name: 'Aura',
+    name: 'Aura NFT Exchange',
     imageUrl: 'https://ipfs.thirdwebcdn.com/ipfs/QmQTajuAUULwo1yagUzXCt8nv2gCu4tZRZRTM6YUo4vsQX/Add%20a%20heading%20(1200%20%C3%97%201200%20px).svg',
-    orderbook: 'aura',
+    orderbook: 'reservoir',
     orderKind: 'seaport-v1.4',
   },
   {
