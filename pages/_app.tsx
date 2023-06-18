@@ -12,6 +12,7 @@ import '@rainbow-me/rainbowkit/styles.css'
 import {
   RainbowKitProvider,
   connectorsForWallets,
+  DisclaimerComponent,
   darkTheme as rainbowDarkTheme,
   lightTheme as rainbowLightTheme,
 } from '@rainbow-me/rainbowkit'
@@ -74,13 +75,22 @@ const connectors = connectorsForWallets([
   {
     groupName: 'Others',
     wallets: [
-      walletConnectWallet({ chains }),
+      // walletConnectWallet({ chains }),
       ledgerWallet({ chains}),
       trustWallet({ chains }),
       
     ],
   },
 ]);
+
+const Disclaimer: DisclaimerComponent = ({ Text, Link }) => (
+  <Text>
+    By connecting your wallet, you agree to the{' '}
+    <Link href="https://termsofservice.xyz">Terms of Service</Link> and
+    acknowledge you have read and understand the protocol{' '}
+    <Link href="https://disclaimer.xyz">Disclaimer</Link>
+  </Text>
+);
 
 const wagmiClient = createClient({
   autoConnect: true,
@@ -201,12 +211,17 @@ function MyApp({
               <RainbowKitProvider
                 coolMode
                 chains={chains}
-                theme={rainbowKitTheme}
+                theme={rainbowDarkTheme({
+                  accentColor: '#6e56cf',
+                  accentColorForeground: 'white',
+                  borderRadius: 'small',
+                  overlayBlur: 'large',
+                })}
                 showRecentTransactions={true}
                 modalSize="wide"
                 appInfo={{
                   appName: 'Aura Exchange HUB',
-                  learnMoreUrl: 'https://learnaboutcryptowallets.example',
+                  disclaimer: Disclaimer,
                 }}
               >
                 <ToastContextProvider>
