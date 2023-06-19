@@ -11,12 +11,13 @@ import { darkTheme, globalReset } from 'stitches.config'
 import '@rainbow-me/rainbowkit/styles.css'
 import {
   RainbowKitProvider,
+  getDefaultWallets,
   connectorsForWallets,
   DisclaimerComponent,
   darkTheme as rainbowDarkTheme,
   lightTheme as rainbowLightTheme,
 } from '@rainbow-me/rainbowkit'
-import { 
+import {
   ledgerWallet,
   injectedWallet,
   rainbowWallet,
@@ -25,10 +26,18 @@ import {
   walletConnectWallet,
   trustWallet,
 } from '@rainbow-me/rainbowkit/wallets'
-import { WagmiConfig, createClient, configureChains } from 'wagmi'
+import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import * as Tooltip from '@radix-ui/react-tooltip'
 import { publicProvider } from 'wagmi/providers/public'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
+import {
+  arbitrum,
+  goerli,
+  hardhat,
+  mainnet,
+  optimism,
+  polygon,
+} from "@wagmi/chains";
 
 import {
   ReservoirKitProvider,
@@ -45,6 +54,7 @@ import { useMarketplaceChain } from 'hooks'
 import ChainContextProvider from 'context/ChainContextProvider'
 import { Analytics } from '@vercel/analytics/react'
 import { faSleigh } from '@fortawesome/free-solid-svg-icons'
+import { rainbowMagicConnector } from 'components/wallets/RainbowMagicConnector'
 
 
 //CONFIGURABLE: Use nextjs to load your own custom font: https://nextjs.org/docs/basic-features/font-optimization
@@ -56,29 +66,40 @@ export const NORMALIZE_ROYALTIES = process.env.NEXT_PUBLIC_NORMALIZE_ROYALTIES
   ? process.env.NEXT_PUBLIC_NORMALIZE_ROYALTIES === 'true'
   : false
 
-const { chains, provider } = configureChains(supportedChains, [
-  alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID || '' }),
-  publicProvider(),
-])
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [mainnet, goerli, polygon, optimism, arbitrum, hardhat],
+  [
+    // alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+    publicProvider(),
+  ],
+);
+
+const projectId = 'dd095998fad4ba65f32699f828b309c5';
 
 const connectors = connectorsForWallets([
   {
     groupName: 'Recommended',
     wallets: [
       injectedWallet({ chains }),
-      rainbowWallet({  chains }),
-      metaMaskWallet({ chains }),
+      rainbowWallet({ projectId, chains }),
+      metaMaskWallet({ projectId, chains }),
       coinbaseWallet({ chains, appName: 'My RainbowKit App' }),
-      
+
     ],
+  },
+  {
+    groupName: 'Sign in with Email',
+    wallets: [
+      rainbowMagicConnector({ chains }),
+    ]
   },
   {
     groupName: 'Others',
     wallets: [
       // walletConnectWallet({ chains }),
-      ledgerWallet({ chains}),
-      trustWallet({ chains }),
-      
+      ledgerWallet({ projectId, chains }),
+      trustWallet({ projectId, chains }),
+
     ],
   },
 ]);
@@ -92,11 +113,12 @@ const Disclaimer: DisclaimerComponent = ({ Text, Link }) => (
   </Text>
 );
 
-const wagmiClient = createClient({
-  autoConnect: true,
+const wagmiClient = createConfig({
+  autoConnect: false,
   connectors,
-  provider,
-})
+  publicClient,
+  webSocketPublicClient
+});
 
 //CONFIGURABLE: Here you can override any of the theme tokens provided by RK: https://docs.reservoir.tools/docs/reservoir-kit-theming-and-customization
 const reservoirKitThemeOverrides = {
@@ -116,7 +138,7 @@ function AppWrapper(props: AppProps & { baseUrl: string }) {
         light: 'light',
       }}
     >
-      <WagmiConfig client={wagmiClient}>
+      <WagmiConfig config={wagmiClient}>
         <ChainContextProvider>
           <AnalyticsProvider>
             <MyApp {...props} />
@@ -214,7 +236,7 @@ function MyApp({
                 theme={rainbowDarkTheme({
                   accentColor: '#6e56cf',
                   accentColorForeground: 'white',
-                  borderRadius: 'small',
+                  borderRadius: 'medium',
                   overlayBlur: 'large',
                 })}
                 showRecentTransactions={true}

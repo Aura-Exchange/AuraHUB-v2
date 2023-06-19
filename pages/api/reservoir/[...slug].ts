@@ -2,8 +2,9 @@ import { setParams } from '@reservoir0x/reservoir-sdk'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import supportedChains, { DefaultChain } from 'utils/chains'
 import { constants } from 'ethers'
-import { goerli, mainnet } from 'wagmi'
+import { mainnet } from 'wagmi'
 import wrappedContracts from 'utils/wrappedContracts'
+import { goerli } from 'viem/chains'
 
 // A proxy API endpoint to redirect all requests to `/api/reservoir/*` to
 // MAINNET: https://api.reservoir.tools/{endpoint}/{query-string}
