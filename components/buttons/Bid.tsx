@@ -3,7 +3,7 @@ import { Button } from 'components/primitives'
 import { cloneElement, ComponentProps, FC, useContext } from 'react'
 import { CSS } from '@stitches/react'
 import { SWRResponse } from 'swr'
-import { useAccount, useNetwork, useSigner, useSwitchNetwork } from 'wagmi'
+import { useAccount, useNetwork, useWalletClient, useSwitchNetwork } from 'wagmi'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { ToastContext } from 'context/ToastContextProvider'
 import { useMarketplaceChain } from 'hooks'
@@ -35,9 +35,8 @@ const Bid: FC<Props> = ({
     chainId: marketplaceChain.id,
   })
 
-  const { data: signer } = useSigner()
+  const { data: signer } = useWalletClient()
   const { chain: activeChain } = useNetwork()
-
   const isInTheWrongNetwork = Boolean(
     signer && marketplaceChain.id !== activeChain?.id
   )

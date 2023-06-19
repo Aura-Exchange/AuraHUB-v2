@@ -20,7 +20,7 @@ import { parseUnits } from 'ethers/lib/utils.js'
 import { useMarketplaceChain } from 'hooks'
 import { UserToken } from 'pages/portfolio/[[...address]]'
 import { FC, useCallback, useEffect, useState } from 'react'
-import { useNetwork, useSigner, useSwitchNetwork } from 'wagmi'
+import { useNetwork, useWalletClient, useSwitchNetwork } from 'wagmi'
 import { ApprovalCollapsible } from './ApprovalCollapsible'
 
 enum BatchListStep {
@@ -56,7 +56,7 @@ const BatchListModal: FC<Props> = ({
   onCloseComplete,
 }) => {
   const [open, setOpen] = useState(false)
-  const { data: signer } = useSigner()
+  const { data: signer } = useWalletClient()
   const { openConnectModal } = useConnectModal()
   const { chain: activeChain } = useNetwork()
   const marketplaceChain = useMarketplaceChain()
